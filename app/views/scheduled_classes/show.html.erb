@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @scheduled_class.name %>
+</p>
+
+<p>
+  <b>Time:</b>
+  <%= @scheduled_class.time %>
+</p>
+
+<p>
+  <b>Type:</b>
+  <%= @scheduled_class.type %>
+</p>
+
+<p>
+  <b>Day:</b>
+  <%= @scheduled_class.day %>
+</p>
+
+
+<%= link_to 'Edit', edit_scheduled_class_path(@scheduled_class) %> |
+<%= link_to 'Back', scheduled_classes_path %>

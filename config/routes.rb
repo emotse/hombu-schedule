@@ -1,4 +1,6 @@
 HombuSchedule::Application.routes.draw do
+  resources :scheduled_classes
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
