@@ -49,7 +49,7 @@ shitpile.keys.each_with_index do |key, index|
   shitpile[key] <<  get_classes(beginner_times, beginner_classes, "Beginner")
 end
 
-#puts shitpile
+puts shitpile
 
 
 class Timetable
