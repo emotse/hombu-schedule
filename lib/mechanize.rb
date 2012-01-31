@@ -9,3 +9,5 @@ requested_date = gets.chomp
 page = agent.post(url, 'FormDate' => requested_date)
 
 items = page.search('td:nth-child(2) td')
+
+puts items
