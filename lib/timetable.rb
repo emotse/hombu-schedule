@@ -63,6 +63,7 @@ class Timetable
   end
 end
 
+# .td3 , .td2, .td1, .title2, center th
 timetable = Timetable.new
 shitpile = timetable.shitpile
 shitpile.keys.each do |key|
