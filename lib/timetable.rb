@@ -16,7 +16,7 @@ class Timetable
       :Sat => [],
       :Sun => []
     }
-    self.fill_shitpile
+    #self.fill_shitpile
   end
 
   def get_times(selector)
@@ -64,9 +64,16 @@ class Timetable
 end
 
 # .td3 , .td2, .td1, .title2, center th
-timetable = Timetable.new
-shitpile = timetable.shitpile
-shitpile.keys.each do |key|
-  puts key
-  puts shitpile[key]
-end
+url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
+agent = Mechanize.new
+page = agent.get(url)
+all_selector = '.td3 , .td2, .td1, .title2, center th'
+all = page.search all_selector
+puts all
+
+#timetable = Timetable.new
+#shitpile = timetable.shitpile
+#shitpile.keys.each do |key|
+  #puts key
+  #puts shitpile[key]
+#end
