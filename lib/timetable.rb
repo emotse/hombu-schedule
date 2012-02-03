@@ -67,8 +67,12 @@ end
 url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
 agent = Mechanize.new
 page = agent.get(url)
-all_selector = '.td3 , .td2, .td1, .title2, center th'
-all = page.search all_selector
+#all_selector = '.td3 , .td2, .td1, .title2, center th'
+days_selector = 'center th'
+time_selector = '.title2'
+teachers_selector = 'td[class*="td"]'
+#all_selector = '.title2, center th, td[class*="td"]'
+all = page.search teachers_selector
 puts all
 
 #timetable = Timetable.new
