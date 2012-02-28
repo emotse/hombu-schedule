@@ -67,13 +67,25 @@ end
 url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
 agent = Mechanize.new
 page = agent.get(url)
+shitpile = []
 #all_selector = '.td3 , .td2, .td1, .title2, center th'
 days_selector = 'center th'
 time_selector = '.title2'
 teachers_selector = 'td[class*="td"]'
 #all_selector = '.title2, center th, td[class*="td"]'
-all = page.search teachers_selector
-puts all
+days = page.search days_selector
+times = page.search time_selector
+teachers = page.search teachers_selector
+
+days.each do |day|
+  times.each do |time|
+    teacher = teachers.shift
+    shitpile << {:day => day.text, :time => time.text, :class => teacher.text}
+  end
+end
+
+puts shitpile
+
 
 #test
 #timetable = Timetable.new
