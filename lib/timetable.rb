@@ -77,10 +77,10 @@ days = page.search days_selector
 times = page.search time_selector
 teachers = page.search teachers_selector
 
-days.each_with_index do |day, day_index|
-  shitpile << {:day => day.text}
-  times.each_with_index do |time, time_index|
-    tmp = {:time => time.text, :class => teachers.shift}
+days.each do |day|
+  times.each do |time|
+    teacher = teachers.shift
+    shitpile << {:day => day.text, :time => time.text, :class => teacher.text}
   end
 end
 
