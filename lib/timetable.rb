@@ -78,12 +78,12 @@ def make_selector( table, row )
 end
 
 first_row = page.search make_selector( regular, curr_row )
-puts first_row
 
 first_row.each_with_index do |row, row_index|
   day = ""
   if row.text == ""
-    day = ""
+    day = page.search( make_selector( regular, curr_row + row_index + 1 ).shift.text
+    puts day
   end
 end
 
