@@ -75,6 +75,7 @@ teachers_selector = 'td[class*="td"]'
 all = page.search teachers_selector
 puts all
 
+#test
 #timetable = Timetable.new
 #shitpile = timetable.shitpile
 #shitpile.keys.each do |key|
