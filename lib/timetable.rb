@@ -71,19 +71,19 @@ shitpile = []
 
 regular = 6
 beginner = 7
-curr_row = 2
+time_row = 2
 
 def make_selector( table, row )
   return "center:nth-child(#{table}) tr:nth-child(#{row}) *"
 end
 
-first_row = page.search make_selector( regular, curr_row )
+first_row = page.search make_selector( regular, time_row )
 
 first_row.each_with_index do |row, row_index|
   day = ""
   if row.text == ""
-    day = page.search( make_selector( regular, curr_row + row_index + 1 ).shift.text
-    puts day
+    curr_row = page.search make_selector( regular, time_row + row_index + 1 )
+    puts curr_row
   end
 end
 
