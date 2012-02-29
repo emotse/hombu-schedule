@@ -67,6 +67,7 @@ end
 url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
 agent = Mechanize.new
 page = agent.get(url)
+page.search('br').each{ |br| br.replace('') }
 shitpile = []
 
 regular = 6
@@ -80,10 +81,17 @@ end
 first_row = page.search make_selector( regular, time_row )
 
 first_row.each_with_index do |row, row_index|
-  day = ""
-  if row.text == ""
-    curr_row = page.search make_selector( regular, time_row + row_index + 1 )
-    puts curr_row
+  curr_index = row_index + 1
+  curr_selector = make_selector( regular, time_row + 1 )
+  curr_row = page.search curr_selector
+  curr_elm = first_row[row_index]
+  if row_index == 0
+    day = curr_row[row_index].text
+    puts day
+  else
+    time = curr_elm.text
+    teacher = curr_row[row_index].text
+    puts time, teacher
   end
 end
 
