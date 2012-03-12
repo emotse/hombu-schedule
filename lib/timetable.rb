@@ -1,68 +1,5 @@
 require 'mechanize'
 
-class Timetable
-  attr_reader :shitpile
-
-  def initialize
-    url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
-    agent = Mechanize.new
-    @page = agent.get(url)
-    @shitpile = {
-      :Mon => [],
-      :Tue => [],
-      :Wed => [],
-      :Thu => [],
-      :Fri => [],
-      :Sat => [],
-      :Sun => []
-    }
-    #self.fill_shitpile
-  end
-
-  def get_times(selector)
-    times = @page.search(selector)
-    times.shift
-    return times
-  end
-
-  def get_classes(selector)
-    curr_class = @page.search(selector)
-    return curr_class
-  end
-
-  def get_todays_class(times, classes, type)
-    class_list = []
-    times.each_with_index do |time, index|
-      class_time = time.content
-      class_teacher = classes[index].content
-      next if class_teacher == ''
-      class_list << {
-        :time => class_time,
-        :teacher => class_teacher,
-        :type => type
-      }
-    end
-    return class_list
-  end
-
-  def fill_shitpile
-    regular_time_selector = 'center:nth-child(6) .title2'
-    beginner_time_selector = 'center:nth-child(9) .title2'
-
-    @shitpile.keys.each_with_index do |key, index|
-      regular_class_selector = "center:nth-child(6) tr:nth-child(#{index + 3}) td"
-      beginner_class_selector = "center:nth-child(9) tr:nth-child(#{index + 3}) td"
-      regular_times = self.get_times(regular_time_selector)
-      beginner_times = self.get_times(beginner_time_selector)
-      regular_classes = self.get_classes(regular_class_selector)
-      beginner_classes = self.get_classes(beginner_class_selector)
-      
-      @shitpile[key] <<  self.get_todays_class(regular_times, regular_classes, "Regular")
-      @shitpile[key] <<  self.get_todays_class(beginner_times, beginner_classes, "Beginner")
-    end
-  end
-end
-
 # .td3 , .td2, .td1, .title2, center th
 url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
 agent = Mechanize.new
@@ -70,41 +7,38 @@ page = agent.get(url)
 page.search('br').each{ |br| br.replace('') }
 shitpile = []
 
-regular = 6
-beginner = 7
-time_row = 2
+regular = page.search( "center:nth-child(6)" )
+beginner = page.search( "center:nth-child(7)" )
 
-def make_selector( table, row )
-  return "center:nth-child(#{table}) tr:nth-child(#{row}) *"
+def count_rows table
+  rows = table.search 'th'
+  return rows.length
 end
 
-first_row = page.search make_selector( regular, time_row )
+def get_times table, column
+  time = table.search ".title2:nth-child(#{column + 2})"
+  return time.text
+end
 
-first_row.each_with_index do |row, row_index|
-  curr_index = row_index + 1
-  curr_selector = make_selector( regular, time_row + 1 )
-  curr_row = page.search curr_selector
-  curr_elm = first_row[row_index]
-  if row_index == 0
-    day = curr_row[row_index].text
-    puts day
-  else
-    time = curr_elm.text
-    teacher = curr_row[row_index].text
-    puts time, teacher
+def parse_table table
+  rows = count_rows( table ) + 1
+  (2..rows).each do |row_index|
+    row = table.search "tr[align='center']:nth-child(#{row_index}) *"
+    day = row.shift.text
+    row_info = parse_row table, row, day
+    puts row_info
   end
 end
 
+def parse_row table, row, day
+  row_info = []
+  row.each_with_index do |column, column_index|
+    time = get_times table, column_index
+    teacher = column.text
+    next if teacher == ""
+    row_info << { :time => time, :teacher => teacher, :day => day }
+  end
+  return row_info
+end
 
-
-
-#puts shitpile
-
-
-#test
-#timetable = Timetable.new
-#shitpile = timetable.shitpile
-#shitpile.keys.each do |key|
-  #puts key
-  #puts shitpile[key]
-#end
+parse_table regular
