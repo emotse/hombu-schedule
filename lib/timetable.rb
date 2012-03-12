@@ -7,8 +7,8 @@ page = agent.get(url)
 page.search('br').each{ |br| br.replace('') }
 shitpile = []
 
-regular = page.search( "center:nth-child(6)" )
-beginner = page.search( "center:nth-child(7)" )
+regular = page.search "center:nth-child(6)"
+beginner = page.search "center:nth-child(9)"
 
 def count_rows table
   rows = table.search 'th'
@@ -20,13 +20,13 @@ def get_times table, column
   return time.text
 end
 
-def parse_table table
+def parse_table table, shitpile
   rows = count_rows( table ) + 1
   (2..rows).each do |row_index|
     row = table.search "tr[align='center']:nth-child(#{row_index}) *"
     day = row.shift.text
     row_info = parse_row table, row, day
-    puts row_info
+    shitpile << row_info
   end
 end
 
@@ -36,9 +36,13 @@ def parse_row table, row, day
     time = get_times table, column_index
     teacher = column.text
     next if teacher == ""
+    teacher = teacher.gsub /^.*[a-z]([A-Z].*)$/, '\1'
     row_info << { :time => time, :teacher => teacher, :day => day }
   end
   return row_info
 end
 
-parse_table regular
+parse_table regular, shitpile
+parse_table beginner, shitpile
+
+puts shitpile
