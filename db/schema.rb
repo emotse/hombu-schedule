@@ -11,13 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120201063219) do
+ActiveRecord::Schema.define(:version => 20120312171633) do
 
   create_table "scheduled_classes", :force => true do |t|
-    t.datetime "time"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "shihan_id"
+    t.string   "day"
+    t.string   "time"
   end
 
   create_table "shihans", :force => true do |t|
