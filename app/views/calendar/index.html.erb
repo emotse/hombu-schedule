@@ -1,0 +1,8 @@
+<h1>what we got so far</h1>
+<% @scheduled_classes.each do |scheduled_class| %>
+  <ul>
+    <li>Day: <%= scheduled_class.day %></li>
+    <li>Time: <%= scheduled_class.time %></li>
+    <li>Teacher: <%= scheduled_class.shihan.name_en %></li>
+  </ul>
+<% end %>
