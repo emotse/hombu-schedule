@@ -1,4 +1,6 @@
 class CalendarController < ApplicationController
+  before_filter :authenticate_user!
+
   # GET /calendar
   def index
     @days = ScheduledClass.get_days
