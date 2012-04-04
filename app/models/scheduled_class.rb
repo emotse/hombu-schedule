@@ -15,6 +15,6 @@ class ScheduledClass < ActiveRecord::Base
   end
 
   def self.get_by_day_and_time day, time
-    ScheduledClass.where([:day => day, :time => time])
+    this_class = ScheduledClass.where({:day => day, :time => time})
   end
 end
