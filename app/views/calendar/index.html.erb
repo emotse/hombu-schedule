@@ -1,0 +1,26 @@
+<h1>what we got so far</h1>
+
+<ul id="days">
+  <% @days.each do |day| %>
+    <li><%= day.day %></li>
+  <% end %>
+</ul>
+
+<ul id="times">
+  <% @times.each do |time| %>
+    <li><%= time.time %></li>
+  <% end %>
+</ul>
+
+<% @teachers.each_with_index do |teacher, index| %>
+  <% if index % @times.length == 0 && index != 0 %>
+    </ul>
+  <% end %>
+  <% if index % @times.length == 0 %>
+    <ul class="classes">
+  <% end %>
+    <li><%= teacher[:name_en] %></li>
+<% end %>
+</ul>
+
+<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
