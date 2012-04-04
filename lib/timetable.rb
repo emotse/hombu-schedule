@@ -81,17 +81,17 @@ end
 first_row = page.search make_selector( regular, time_row )
 
 first_row.each_with_index do |row, row_index|
-  curr_index = row_index + 1
   curr_selector = make_selector( regular, time_row + 1 )
   curr_row = page.search curr_selector
   curr_elm = first_row[row_index]
+  #puts row.css_path
   if row_index == 0
     day = curr_row[row_index].text
-    puts day
+    #puts day
   else
     time = curr_elm.text
     teacher = curr_row[row_index].text
-    puts time, teacher
+    #puts time, teacher
   end
 end
 
