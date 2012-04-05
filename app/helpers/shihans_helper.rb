@@ -1,0 +1,2 @@
+module ShihansHelper
+end

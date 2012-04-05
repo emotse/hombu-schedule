@@ -1,0 +1,9 @@
+<ul>
+  <li><%= @shihan.name_en %></li>
+  <% @shihan.scheduled_classes.each do |scheduled_class| %>
+    <ul>
+      <li><%= scheduled_class.day %></li>
+      <li><%= scheduled_class.time %></li>
+    </ul>
+  <% end %>
+</ul>

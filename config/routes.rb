@@ -1,4 +1,12 @@
 HombuSchedule::Application.routes.draw do
+  get "shihan/index"
+
+  get "shihan/show"
+
+  get "scheduled_class/index"
+
+  get "scheduled_class/show"
+
   devise_for :users
 
   # The priority is based upon order of creation:
@@ -32,6 +40,9 @@ HombuSchedule::Application.routes.draw do
   #     resources :comments, :sales
   #     resource :seller
   #   end
+
+  resources :scheduled_classes
+  resources :shihans
 
   # Sample resource route with more complex sub-resources
   #   resources :products do

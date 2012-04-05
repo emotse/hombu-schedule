@@ -1,0 +1,8 @@
+<% @scheduled_classes.each do |scheduled_class| %>
+  <ul>
+    <li><%= scheduled_class.day %></li>
+    <li><%= scheduled_class.time %></li>
+    <li><%= scheduled_class.shihan.name_en %></li>
+    <li><%= link_to "Class Link", scheduled_class_path(scheduled_class) %></li>
+  </ul>
+<% end %>
