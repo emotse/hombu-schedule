@@ -2,6 +2,6 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
-$(document).bind 'ready', (event) =>
-  teachers = $(".teacher")
-  console.log(teachers)
+$(document).on 'ready', (e) =>
+  $('table').on 'mouseover', '.teacher > p', (e) =>
+    console.log(e.target)
