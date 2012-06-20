@@ -51,9 +51,9 @@ module HombuScrape
         next if teacher == ''
         teacher = teacher.gsub(/^.*[a-z]([A-Z].*)$/, '\1')
         @shitpile << {
-          :time => time,
-          :teacher => teacher,
-          :day => day
+          time: time,
+          teacher: teacher,
+          day: day
         }
       end
     end
@@ -87,8 +87,7 @@ module HombuScrape
       items = page.search('td:nth-child(2) td')
       items.each do |item|
         curr_class = parse_class(item)
-        curr_class.merge!(:day => day)
-        puts curr_class
+        curr_class.merge!(day: day)
         @shitpile << curr_class
       end
 
@@ -106,7 +105,7 @@ module HombuScrape
       time = row_text.match(/^\d+:\d+-\d+:\d+/).to_s
       teacher = row_text.match(/\w*\.?\w+$/).to_s
 
-      return { :time => time, :teacher => teacher }
+      return { time: time, teacher: teacher }
     end
   end
 end
