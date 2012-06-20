@@ -3,15 +3,15 @@ require 'date'
 
 module HombuScrape
   class Timetable
+    attr_reader :shitpile
+
     def initialize
-      @shitpile = Array.new
+      @shitpile = []
       agent = Mechanize.new
       timetable_url = 'http://www.aikikai.or.jp/eng/hombu/timetable.htm'
       page = load_timetable_page(agent, timetable_url)
       class_tables = get_class_tables(page)
       class_tables.each { |class_table| parse_table(class_table) }
-
-      return @shitpile
     end
 
     def load_timetable_page(agent, url)
@@ -72,30 +72,33 @@ module HombuScrape
   end
 
   class Dailyclass
-    def initialize
-      @url = 'http://203.211.178.140/cgi-bin/mycgi/eachclass.cgi?Lang=e'
-      @agent = Mechanize.new
-      @agent.default_encoding = 'utf-8'
-      @agent.force_default_encoding = true
+    attr_reader :shitpile
+
+    def initialize(date)
+      @date = date
       @shitpile = []
+      url = 'http://203.211.178.140/cgi-bin/mycgi/eachclass.cgi?Lang=e'
+      agent = Mechanize.new
+      agent.default_encoding = 'utf-8'
+      agent.force_default_encoding = true
+
+      get_classes(agent, url)
     end
 
     # dates need to be in 'yyyy/mm/dd' format
-    def get_classes(date)
-      page = @agent.post(@url, 'FormDate' => date)
-      day = get_day(date)
+    def get_classes(agent, url)
+      page = agent.post(url, 'FormDate' => @date)
+      day = get_day
       items = page.search('td:nth-child(2) td')
       items.each do |item|
         curr_class = parse_class(item)
         curr_class.merge!(day: day)
         @shitpile << curr_class
       end
-
-      return @shitpile
     end
 
-    def get_day(date)
-      day = Date.parse(date)
+    def get_day
+      day = Date.parse(@date)
 
       return day.strftime('%a')
     end
