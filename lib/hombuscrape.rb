@@ -50,11 +50,9 @@ module HombuScrape
         teacher = column.text
         next if teacher == ''
         teacher = teacher.gsub(/^.*[a-z]([A-Z].*)$/, '\1')
-        @shitpile << {
-          time: time,
-          teacher: teacher,
-          day: day
-        }
+        @shitpile << { time: time,
+                       teacher: teacher,
+                       day: day }
       end
     end
 
