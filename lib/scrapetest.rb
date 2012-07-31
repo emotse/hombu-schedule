@@ -1,4 +1,4 @@
 require './hombuscrape'
 
-daily = HombuScrape::Dailyclass.new
-daily.get_classes('2012/06/20')
+daily = HombuScrape::Dailyclass.new('2012/06/24')
+puts daily.shitpile
