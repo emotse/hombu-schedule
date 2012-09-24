@@ -2,30 +2,26 @@
 <h1>what we got so far</h1>
 
 <div class="row">
-  <div class="span14">
+  <div class="span12">
     <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
   </div>
 </div>
 
-<div class="row">
-  <div class="offset1 span14">
-    <div class="row">
-      <% @days.each_with_index do |day, day_number| %>
-        <div class="span2 day">
-          <h4><%= day.day %></h4>
-          <% @times.each do |time| %>
-            <% teachers = ScheduledClass.get_by_day_and_time( day.day, time.time ) %>
-            <% teachers.each do |teacher| %>
-              <% if teacher != nil %>
-                <div class="class">
-                  <p><%= time.time %></p>
-                  <p class="lead"><%= teacher.shihan.name_en %></p>
-                </div>
-              <% end %>
-            <% end %>
+<div class="row-fluid">
+  <% @days.each_with_index do |day, day_number| %>
+    <div class="row-fluid day">
+      <h1 class="page-header"><small><%= day.day %></small></h1>
+      <% @times.each do |time| %>
+        <% teachers = ScheduledClass.get_by_day_and_time( day.day, time.time ) %>
+        <% teachers.each do |teacher| %>
+          <% if teacher != nil %>
+            <div class="class well span2">
+              <em class="time"><%= time.time %></em>
+              <p class="name"><%= teacher.shihan.name_en %></p>
+            </div>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
     </div>
+  <% end %>
 </div>
-

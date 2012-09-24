@@ -1,6 +1,19 @@
 @import "bootstrap";
-body {
-  padding-top: 60px;
-  padding-left: 10px;
-}
 @import "bootstrap-responsive";
+body {
+  padding: 60px 10px 0;
+}
+
+p.name { font-size: large; }
+
+@media (min-width: 1011px) and (max-width: 1200px) {
+  p.name { font-size: medium; }
+}
+
+@media (min-width: 821px) and (max-width: 1010px) {
+  p.name { font-size: small; }
+}
+
+@media (min-width: 768px) and (max-width: 820px) {
+  p.name { font-size: x-small; }
+}
