@@ -1,34 +1,31 @@
 <h1>hello <%= current_user.email %></h1>
 <h1>what we got so far</h1>
 
-<table>
-  <tbody>
-    <tr>
-      <td class="blank"></td>
-      <% @days.each do |day| %>
-        <td class="day">
-          <p><%= day.day %></p>
-        </td>
-      <% end %>
-    </tr>
-    <% @times.each do |time| %>
-      <tr>
-        <td class="time">
-          <p><%= time.time %></p>
-        </td>
-        <% @days.each do |day| %>
-          <td class="teacher">
+<div class="row">
+  <div class="span14">
+    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="offset1 span14">
+    <div class="row">
+      <% @days.each_with_index do |day, day_number| %>
+        <div class="span2 day">
+          <h4><%= day.day %></h4>
+          <% @times.each do |time| %>
             <% teachers = ScheduledClass.get_by_day_and_time( day.day, time.time ) %>
             <% teachers.each do |teacher| %>
               <% if teacher != nil %>
-                <p><%= teacher.shihan.name_en %></p>
+                <div class="class">
+                  <p><%= time.time %></p>
+                  <p class="lead"><%= teacher.shihan.name_en %></p>
+                </div>
               <% end %>
             <% end %>
-          </td>
-        <% end %>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+</div>
 
-<%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
