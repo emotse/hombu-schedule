@@ -9,7 +9,7 @@
 
 <div class="row-fluid">
   <% @days.each_with_index do |day, day_number| %>
-    <div class="row-fluid day">
+    <div id="<%= day.day %>" class="row-fluid day">
       <h1 class="page-header"><small><%= day.day %></small></h1>
       <% @times.each do |time| %>
         <% teachers = ScheduledClass.get_by_day_and_time( day.day, time.time ) %>
@@ -24,4 +24,20 @@
       <% end %>
     </div>
   <% end %>
+</div>
+
+<div class="container">
+  <div class="navbar navbar-fixed-bottom">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <% @days.each_with_index do |day, day_number| %>
+            <li <% if day_number == 0 %>class="active" <% end %>>
+              <a href="#<%= day.day %>"><%= day.day %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
