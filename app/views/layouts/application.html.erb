@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>HombuSchedule</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <%= yield(:head) %>
-</head>
-<body data-spy="scroll" data-target=".navbar">
-
-<%= yield %>
-
-</body>
+  <head>
+    <title>HombuSchedule</title>
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body data-spy="scroll" data-target=".navbar">
+    <% if user_signed_in? %>
+      <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav">
+              <li><%= link_to "Calendar", root_path %></li>
+              <li><%= link_to "Teachers", shihans_path %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <%= yield %>
+  </body>
 </html>

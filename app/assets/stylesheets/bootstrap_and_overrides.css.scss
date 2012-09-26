@@ -6,6 +6,8 @@ body {
 
 p.name { font-size: large; }
 
+div.class:hover { background-color: ivory; }
+
 @media (min-width: 1011px) and (max-width: 1200px) {
   p.name { font-size: medium; }
 }
