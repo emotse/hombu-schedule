@@ -8,8 +8,9 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me, :watched_classes
 
-  def self.add_to_watched_classes watched_classes
+  def add_to_watched_classes watched_classes
     watched_classes.each do |watched_class|
+      self.watched_classes << watched_class if !self.watched_classes.include?(watched_class)
     end
   end
 end

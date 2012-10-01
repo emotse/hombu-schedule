@@ -3,5 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).on 'ready', (e) =>
-  $('table').on 'mouseover', '.teacher > p', (e) =>
-    console.log(e.target)
+  $('div.day').on 'click', 'div.class', (e) =>
+    item = if($(e.target).is('p.name, em.time')) then $(e.target).parent() else $(e.target)
+    [time, name] = ($(child).text() for child in item.children())
