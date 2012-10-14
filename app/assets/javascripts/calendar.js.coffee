@@ -6,3 +6,4 @@ $(document).on 'ready', (e) =>
   $('div.day').on 'click', 'div.class', (e) =>
     item = if($(e.target).is('p.name, em.time')) then $(e.target).parent() else $(e.target)
     [time, name] = ($(child).text() for child in item.children())
+    console.log(time, name)

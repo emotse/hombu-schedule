@@ -12,12 +12,13 @@
     <div id="<%= day.day %>" class="row-fluid day">
       <h1 class="page-header"><small><%= day.day %></small></h1>
       <% @times.each do |time| %>
-        <% teachers = ScheduledClass.get_by_day_and_time( day.day, time.time ) %>
-        <% teachers.each do |teacher| %>
-          <% if teacher != nil %>
+        <% classes = ScheduledClass.get_by_day_and_time( day.day, time.time ) %>
+        <% classes.each do |klass| %>
+          <% if klass != nil %>
             <div class="class well span2">
               <em class="time"><%= time.time %></em>
-              <p class="name"><%= teacher.shihan.name_en %></p>
+              <p class="name"><%= klass.shihan.name_en %></p>
+              <p class="id" style="display:none"><%= klass.id %></p>
             </div>
           <% end %>
         <% end %>
